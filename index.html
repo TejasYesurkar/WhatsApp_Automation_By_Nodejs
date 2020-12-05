@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WhatsApp Web</title>
+    </head>
+    <body>
+        <div id="app">
+            <h3>WhatsApp Web AP</h3>
+            <p></p>
+            <img src="" alt="QR Code" id="qrcode">
+
+            <h3>Log:</h3>
+                <ul class="logs"></ul>
+                
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.min.js" integrity="sha512-uElffqRAo44n9cqo42itgRMY0L0zNZWEj3RGTQwyQsITiz4CB6rALOu1/S4O5iy/vFTMNs8gmTpDXB8mfQpjOg==" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+                var socket =io.connect('http://localhost:8000',{path: '/socket.io'})
+                
+                socket.on('message',function(msg){
+                  $('.logs').append($('<li>').text(msg));
+                });
+
+                socket.on('qr',function(src){
+                    $('#qrcode').attr('src',src)
+                });
+        });
+    </script>
+    </body>
+</html>
